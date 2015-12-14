@@ -29,7 +29,7 @@ app.use(function(req, res, next) {
 app.use(morgan('dev'));
 
 // Connect to the database
-//mongoose.connect(config.database);
+mongoose.connect(config.database);
 
 // API ROUTES
 // ==================================
