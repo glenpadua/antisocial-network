@@ -1,0 +1,23 @@
+{
+  "name": "antisocial-network",
+  "version": "0.0.0",
+  "homepage": "https://github.com/glenpadua/antisocial-network",
+  "authors": [
+    "Glen Padua <glenpadua01@gmail.com>"
+  ],
+  "description": "The anti-social network",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "angular": "~1.4.8",
+    "angular-route": "~1.4.8",
+    "angular-animate": "~1.4.8"
+  }
+}
