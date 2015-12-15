@@ -13,6 +13,48 @@ module.exports = function(app, express) {
 	// get an instance of express router
 	var apiRouter = express.Router();
 	
+	// route to authenticate users (POST http://localhost:8080/api/authenticate)
+	apiRouter.post('/authenticate', function(req, res) {
+		
+		// find the user
+		// select the name username and password explicitly
+		User.findOne({
+			username: req.body.username
+		}).select('name username password').exec(function(err, user) {
+			
+			if (err) throw err;
+			
+			// if no user with that username was found
+			if (!user) {
+				res.json({ success: false, message: 'Authentication failed. User not found.' });
+			}
+			else if (user) {
+				// check if password matches
+				var validPassword = user.comparePassword(req.body.password);
+				if (!validPassword)
+					res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+				else {
+					// if user is found and password is right
+					// create a token
+					var token = jwt.sign({
+						name: user.name,
+						username: user.username
+					}, superSecret, {
+						expiresInMinutes: 1440 // expires in 24 hours
+					});
+
+					// return the information token as JSON
+					res.json({
+						success: true,
+						message: 'Authenticated successfully',
+						token: token
+					});
+				}
+			}
+		});
+	});
+	
+	
 	// middleware to use for all requests
 	apiRouter.use(function(req, res, next) {
 		console.log("Somebody just came in!");
