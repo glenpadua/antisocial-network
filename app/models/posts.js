@@ -11,5 +11,11 @@ var PostSchema = new Schema({
 	comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 });
 
+
+PostSchema.methods.likePost = function(cb) {
+	this.likes += 1;
+	this.save(cb);
+}
+
 // return the model
 module.exports = mongoose.model('Post', PostSchema);

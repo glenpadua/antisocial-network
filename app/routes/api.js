@@ -63,7 +63,7 @@ module.exports = function(app, express) {
 		// More stuff for authenticating users
 		
 		// check header or url params or post params for token
-		var token = req.body.token || req.query.token ||req.headers['x-access-token'];
+		var token = req.body.token || req.query.token || req.headers['x-access-token'];
 		
 		// decode token
 		if (token) {
@@ -232,8 +232,8 @@ module.exports = function(app, express) {
 			});	
 		});
 	
-	// Get all posts of particular user (GET http://localhost/api/:username/posts)
-	apiRouter.route('/posts/:username')
+	// Get all posts of particular user (GET http://localhost/api/users/:username/posts)
+	apiRouter.route('/users/:username/posts')
 	
 		.get(function(req, res) {
 			// check if user exists
@@ -254,6 +254,47 @@ module.exports = function(app, express) {
 			});
 		
 		});
+	
+	// Routes that end in /posts/:post_id
+	// -----------------------------------------
+	
+	apiRouter.route('/posts/:post_id')
+		// Get individual post given post ID (GET http://localhost/api/posts/:post_id)
+		.get(function(req, res) {
+			Post.findById(req.params.post_id, function(err, post) {
+				if (err) res.send(err);
+				
+				// return the post
+				res.json(post);
+			});
+		})
+	
+		// Delete a post (DELETE http://localhost/api/posts/:post_id)
+		.delete(function(req, res) {
+			Post.remove({ _id: req.params.post_id }, function(err, post) {
+				if (err) return res.send(err)
+				
+				res.json({ message: 'Post deleted successfully!' });
+			});
+		});
+	
+		// Like a Post (PUT http://localhost/api/posts/:post_id/like)
+		apiRouter.route('/posts/:post_id/like')
+			
+			.put(function(req, res) {
+				Post.findById(req.params.post_id, function(err, post) {
+				if (err) res.send(err);
+				// increment the like count by 1
+				post.likePost(function(err) {
+					if (err) return res.send(err);
+					
+					res.json({ message: 'Liked post!' });
+				});
+				
+			});
+		});
+	
+		
 	
 	return apiRouter;
 };
