@@ -3,6 +3,7 @@
 
 var User = require('../models/users'),
 		Post = require('../models/posts'),
+		Comment = require('../models/comments'),
 		jwt = require('jsonwebtoken'),
 		config = require('../../config');
 
@@ -219,7 +220,7 @@ module.exports = function(app, express) {
 				if (err) return res.send(err);
 				
 				res.json({ message: 'Post created successfully!' });
-			})
+			});
 		})
 	
 		// Get all posts (GET http://localhost/api/posts)
@@ -255,16 +256,30 @@ module.exports = function(app, express) {
 		
 		});
 	
+	// Middleware that returns post object of particular post ID to use in the following routes
+	apiRouter.param('post_id', function(req, res, next, id) {
+		var query = Post.findById(id);
+
+		query.exec(function (err, post){
+			if (err) { return next(err); }
+			if (!post) { return next(new Error('can\'t find post')); }
+
+			req.post = post;
+			return next();
+		});
+	});
+	
 	// Routes that end in /posts/:post_id
 	// -----------------------------------------
 	
 	apiRouter.route('/posts/:post_id')
 		// Get individual post given post ID (GET http://localhost/api/posts/:post_id)
 		.get(function(req, res) {
-			Post.findById(req.params.post_id, function(err, post) {
-				if (err) res.send(err);
-				
-				// return the post
+		
+			// Populate the comments array for the post
+			req.post.populate('comments', function(err, post) {
+				if (err) { return next(err); }
+
 				res.json(post);
 			});
 		})
@@ -282,16 +297,41 @@ module.exports = function(app, express) {
 		apiRouter.route('/posts/:post_id/like')
 			
 			.put(function(req, res) {
-				Post.findById(req.params.post_id, function(err, post) {
-				if (err) res.send(err);
-				// increment the like count by 1
-				post.likePost(function(err) {
-					if (err) return res.send(err);
+				req.post.likePost(function(err, post) {
+					if (err) res.send(err)
 					
-					res.json({ message: 'Liked post!' });
+					res.json({ message: 'Liked post successfully!' });
 				});
+		});
+	
+	// COMMENT API ROUTES
+	// ========================================================================	
+	
+	// Add a comment to a post (POST http://localhost/api/posts/:post_id/comments)
+	apiRouter.route('/posts/:post_id/comments')
+		
+		.post(function(req, res) {
+			// Create a new instance of the Comment model
+			var comment  = new Comment();
+			
+			// Set comment info
+			comment.author = req.decoded.name;
+			comment.post = req.post;
+			comment.description = req.body.description;
+		
+			// save comment and check for errors
+			comment.save(function(err, comment) {
+				if (err) return res.send(err);
 				
+				req.post.comments.push(comment);
+				req.post.save(function(err, post) {
+					if(err){ return next(err); }
+
+					res.json({ message: 'Comment Added!' });
+				});
 			});
+		
+			
 		});
 	
 		

@@ -10,4 +10,4 @@ var CommentSchema = new Schema({
 });
 
 // return the model
-modules.export = mongoose.model('Comment', CommentSchema);
+module.exports = mongoose.model('Comment', CommentSchema);
