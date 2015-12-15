@@ -33,7 +33,7 @@ module.exports = function(app, express) {
 	// -----------------------------------------
 	apiRouter.route('/users')
 	
-	// Create a User/Register (POST http://localhost/api/users)
+		// Create a User/Register (POST http://localhost/api/users)
 		.post(function(req, res) {
 			// Create a new instance of the user model
 			var user = new User();
@@ -55,6 +55,16 @@ module.exports = function(app, express) {
 				
 				res.json({ message: 'User created successfully!' });
 			});
+		})
+		
+		// Get all users (GET http://localhost/api/users)
+		.get(function(req, res) {
+			User.find(function(err, users) {
+				if (err) res.send(err);
+				
+				// return the users
+				res.json(users);
+			})
 		});
 	
 	return apiRouter;
