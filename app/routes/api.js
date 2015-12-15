@@ -111,5 +111,14 @@ module.exports = function(app, express) {
 			});
 		})
 	
+		// Delete a user (DELETE http://localhost/api/users/:username)
+		.delete(function(req, res) {
+			User.remove({ username: req.params.username }, function(err, user) {
+				if (err) return res.send(err);
+				
+				res.json({ message: 'Successfully deleted' });
+			});
+		})
+	
 	return apiRouter;
 };
