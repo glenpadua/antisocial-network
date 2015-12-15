@@ -67,5 +67,23 @@ module.exports = function(app, express) {
 			})
 		});
 	
+	// Routes that end in /users/:username
+	// -----------------------------------------
+	apiRouter.route('/users/:username')
+	
+		// Get user with that username (GET http://localhost/api/users/:username)
+		.get(function(req, res) {
+			
+			User.findOne({ username: req.params.username }, function(err, user) {
+				if (err) res.send(err);
+				
+				if (user === null) 
+					res.json({ success: false, message: 'No such user exists' });
+				else
+				// return the user
+					res.json(user);
+			});
+		})
+	
 	return apiRouter;
 };
