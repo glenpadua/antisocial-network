@@ -7,8 +7,7 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
 	name: String,
 	username: { type: String, required: true, index: { unique: true }},
-	password: { type: String, required: true, select: false },
-	posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }]
+	password: { type: String, required: true, select: false }
 });
 
 // hash the password before the user is saved

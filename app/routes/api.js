@@ -29,7 +29,33 @@ module.exports = function(app, express) {
 		res.json({ message: 'Welcome to the Anti-Social Network API!' });
 	});
 	
-	// More API routes to follow
+	// Routes that end in /users
+	// -----------------------------------------
+	apiRouter.route('/users')
+	
+	// Create a User/Register (POST http://localhost/api/users)
+		.post(function(req, res) {
+			// Create a new instance of the user model
+			var user = new User();
+		
+			// set the user information
+			user.name = req.body.name;
+			user.username = req.body.username;
+			user.password = req.body.password;
+		
+			// save user and check for errors
+			user.save(function(err) {
+				if (err) {
+					// duplicate entry
+					if (err.code == 11000)
+						return res.json({ success: false, message: 'A user with that username already exists.' });
+					else
+						return res.send(err);
+				}
+				
+				res.json({ message: 'User created successfully!' });
+			});
+		});
 	
 	return apiRouter;
 };
