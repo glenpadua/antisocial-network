@@ -31,28 +31,22 @@ app.use(morgan('dev'));
 // Connect to the database
 mongoose.connect(config.database);
 
+// Set location of static files
+app.use(express.static(__dirname + '/public'));
+
 // API ROUTES
 // ==================================
-
-// basic route for home page
-app.get('/', function(req, res) {
-	res.send('Welcome to the home page');
-});
-
-// get an instance of express router
-var apiRouter = express.Router();
-
-// test route to make sure everything is working
-// accessed at GET http://localhost:8080/api
-apiRouter.get('/', function(req, res) {
-	res.json({ message: 'hooray! welcome to our api!' });
-});
-
-// more API routes go here
+var apiRoutes = require('./app/routes/api')(app, express);
 
 // REGISTER ROUTES -------------------
 // all API routes will be prefixed with /api
-app.use('/api', apiRouter);
+app.use('/api', apiRoutes);
+
+// MAIN CATCHALL ROUTE ---------------
+// SEND USERS TO FRONTEND ------------
+app.get('*', function(req, res) {
+	res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+});
 
 // START THE SERVER 
 // ==================================
