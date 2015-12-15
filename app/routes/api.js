@@ -220,6 +220,39 @@ module.exports = function(app, express) {
 				
 				res.json({ message: 'Post created successfully!' });
 			})
+		})
+	
+		// Get all posts (GET http://localhost/api/posts)
+		.get(function(req, res) {
+			Post.find(function(err, posts) {
+				if (err) res.send(err);
+				
+				// return all posts
+				res.json(posts);
+			});	
+		});
+	
+	// Get all posts of particular user (GET http://localhost/api/:username/posts)
+	apiRouter.route('/posts/:username')
+	
+		.get(function(req, res) {
+			// check if user exists
+			User.findOne({ username: req.params.username }, function(err, user) {
+				if (err) res.send(err);
+
+				if (user === null) 
+					res.json({ success: false, message: 'No such user exists' });
+				else {
+				// find and return the posts
+					Post.find({ author_id: req.params.username }, function(err, posts) {
+						if (err) res.send(err);
+
+						// return the posts
+						res.json(posts);
+					});
+				}
+			});
+		
 		});
 	
 	return apiRouter;
