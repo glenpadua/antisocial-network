@@ -84,6 +84,32 @@ module.exports = function(app, express) {
 					res.json(user);
 			});
 		})
+		
+		// Update user info (PUT http://localhost/api/users/:username)
+		.put(function(req, res) {
+			User.findOne({ username: req.params.username }, function(err, user) {
+				if (err) res.send(err);
+				
+				// update users only if info is new
+				if (req.body.name) user.name = req.body.name;
+				if (req.body.username) user.username = req.body.username;
+				if (req.body.password) user.password = req.body.password;
+				
+				// save the user
+				user.save(function(err) {
+					if (err) {
+						// duplicate entry
+						if (err.code == 11000)
+							return res.json({ success: false, message: 'A user with that username already exists.' });
+						else
+							return res.send(err);
+					}
+					
+					// return message
+					res.json({ message: 'User updated!' });
+				});
+			});
+		})
 	
 	return apiRouter;
 };
