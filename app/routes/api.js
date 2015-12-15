@@ -61,8 +61,33 @@ module.exports = function(app, express) {
 		
 		// More stuff for authenticating users
 		
-		// move on to the next route without stopping here
-		next();
+		// check header or url params or post params for token
+		var token = req.body.token || req.query.token ||req.headers['x-access-token'];
+		
+		// decode token
+		if (token) {
+			jwt.verify(token, superSecret, function(err, decoded) {
+				if (err) {
+					return res.status(403).send({
+						success: false,
+						message: 'Failed to authenticate token'
+					});
+				} 
+				else {
+					// if everything is good save to request later for use in other routes
+					req.decoded = decoded;
+					
+					next();	
+				}
+			});
+		}
+		else {
+			// if no token return HTTP 403  access forbidden
+			return res.status(403).send({
+				success: false,
+				message: 'No token provided'
+			});
+		}
 	});
 	
 	// test route for API
@@ -70,6 +95,9 @@ module.exports = function(app, express) {
 	apiRouter.get('/', function(req, res) {
 		res.json({ message: 'Welcome to the Anti-Social Network API!' });
 	});
+	
+	// USER API ROUTES
+	// ========================================================================
 	
 	// Routes that end in /users
 	// -----------------------------------------
@@ -160,7 +188,16 @@ module.exports = function(app, express) {
 				
 				res.json({ message: 'Successfully deleted' });
 			});
-		})
+		});
+	
+	// api endpoint to get user information
+	apiRouter.get('/me', function(req, res) {
+		res.send(req.decoded);
+	});
+	
+	// POST API ROUTES
+	// ========================================================================
+	
 	
 	return apiRouter;
 };
