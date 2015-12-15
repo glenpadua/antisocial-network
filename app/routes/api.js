@@ -233,7 +233,7 @@ module.exports = function(app, express) {
 			});	
 		});
 	
-	// Get all posts of particular user (GET http://localhost/api/users/:username/posts)
+	// Get all posts of particular user (GET http://localhost:8080/api/users/:username/posts)
 	apiRouter.route('/users/:username/posts')
 	
 		.get(function(req, res) {
@@ -273,7 +273,7 @@ module.exports = function(app, express) {
 	// -----------------------------------------
 	
 	apiRouter.route('/posts/:post_id')
-		// Get individual post given post ID (GET http://localhost/api/posts/:post_id)
+		// Get individual post given post ID (GET http://localhost:8080/api/posts/:post_id)
 		.get(function(req, res) {
 		
 			// Populate the comments array for the post
@@ -284,7 +284,7 @@ module.exports = function(app, express) {
 			});
 		})
 	
-		// Delete a post (DELETE http://localhost/api/posts/:post_id)
+		// Delete a post (DELETE http://localhost:8080/api/posts/:post_id)
 		.delete(function(req, res) {
 			Post.remove({ _id: req.params.post_id }, function(err, post) {
 				if (err) return res.send(err)
@@ -293,7 +293,7 @@ module.exports = function(app, express) {
 			});
 		});
 	
-		// Like a Post (PUT http://localhost/api/posts/:post_id/like)
+		// Like a Post (PUT http://localhost:8080/api/posts/:post_id/like)
 		apiRouter.route('/posts/:post_id/like')
 			
 			.put(function(req, res) {
@@ -307,7 +307,7 @@ module.exports = function(app, express) {
 	// COMMENT API ROUTES
 	// ========================================================================	
 	
-	// Add a comment to a post (POST http://localhost/api/posts/:post_id/comments)
+	// Add a comment to a post (POST http://localhost:8080/api/posts/:post_id/comments)
 	apiRouter.route('/posts/:post_id/comments')
 		
 		.post(function(req, res) {
@@ -332,6 +332,31 @@ module.exports = function(app, express) {
 			});
 		
 			
+		});
+	
+	// Middleware that returns comment object of particular comment ID to use in the following routes
+	apiRouter.param('comment_id', function(req, res, next, id) {
+		var query = Comment.findById(id);
+
+		query.exec(function (err, comment){
+			if (err) { return next(err); }
+			if (!comment) { return next(new Error('can\'t find comment')); }
+
+			req.comment = comment;
+			return next();
+		});
+	});
+	
+	// Liking a comment (PUT http://localhost:8080/api/posts/:post_id/comments/:comment_id/like)
+	
+	apiRouter.route('/posts/:post_id/comments/:comment_id/like')
+		
+		.put(function(req, res) {
+			req.comment.likeComment(function(err, comment) {
+				if (err) res.send(err);
+				
+				res.json({ message: 'Comment Liked successfully!' });
+			});
 		});
 	
 		
