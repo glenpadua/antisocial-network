@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
 
 // Post schema
 var PostSchema = new Schema({
-	author: String,
+	author_id: String,
+	author_name: String,
 	description: String,
 	date: { type: Date, default: Date.now },
 	likes: { type: Number, default: 0 },

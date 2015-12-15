@@ -2,6 +2,7 @@
 // ===============================
 
 var User = require('../models/users'),
+		Post = require('../models/posts'),
 		jwt = require('jsonwebtoken'),
 		config = require('../../config');
 
@@ -198,6 +199,28 @@ module.exports = function(app, express) {
 	// POST API ROUTES
 	// ========================================================================
 	
+	// Routes that end in /posts
+	// -----------------------------------------
+	
+	apiRouter.route('/posts')
+		
+		// Create a new Post (POST http://localhost/api/posts)
+		.post(function(req, res) {
+			// Create a new instance of the Post model
+			var post = new Post();
+		
+			// Set post information
+			post.author_id = req.decoded.username;
+			post.author_name = req.decoded.name;
+			post.description = req.body.description;
+			
+			// save post and check for errors 
+			post.save(function(err) {
+				if (err) return res.send(err);
+				
+				res.json({ message: 'Post created successfully!' });
+			})
+		});
 	
 	return apiRouter;
 };
