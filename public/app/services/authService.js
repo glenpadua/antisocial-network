@@ -86,15 +86,41 @@ angular.module('authService', [])
 
 // ===================================================
 // application configuration to integrate token into requests
+// all HTTP requests should carry the token
 // ===================================================
 
-	.factory('AuthInterceptor', function($q, AuthToken) {
+	.factory('AuthInterceptor', function($q, $location, AuthToken) {
 		
 		var interceptorFactory = {};
 	
 		// attach the token to every request
+		interceptorFactory.request = function(config) {
+			
+			// grab the token
+			var token = AuthToken.getToken();
+			
+			// if token exists, add it to header as x-access-token
+			if (token)
+				config.headers['x-access-token'] = token;
+			
+			return config;
+		};
 	
 		// redirect if token doesn't authenticate
+		// happens on response errors
+		interceptorFactory.responseError = function(response) {
+			
+			// if server returns 403 forbidden response
+			if (response.status == 403) {
+				// clear token
+				AuthToken.setToken();
+				// redirect to login
+				$location.path('/login');
+			}
+			
+			// return the errors from the server as a promise
+			return $q.reject(response);
+		};
 	
 		return interceptorFactory;
 	})
