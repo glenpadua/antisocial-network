@@ -1,5 +1,5 @@
 // SETS ALL THE API ROUTES
-// ===============================
+// =================================================
 
 var User = require('../models/users'),
 		Post = require('../models/posts'),
@@ -261,10 +261,14 @@ module.exports = function(app, express) {
 		var query = Post.findById(id);
 
 		query.exec(function (err, post){
-			if (err) { return next(err); }
-			if (!post) { return next(new Error('can\'t find post')); }
+			if (err) return next(err); 
+								
+			if (!post) { return next(new Error('Can\'t find post')); }
 
+			// attaching it to the request object
 			req.post = post;
+			
+			// keep going
 			return next();
 		});
 	});
@@ -339,9 +343,11 @@ module.exports = function(app, express) {
 		var query = Comment.findById(id);
 
 		query.exec(function (err, comment){
-			if (err) { return next(err); }
-			if (!comment) { return next(new Error('can\'t find comment')); }
-
+			if (err) return next(err); 
+			
+			if (!comment) { return next(new Error('Can\'t find comment')); }
+			
+			// attach it to the request object
 			req.comment = comment;
 			return next();
 		});
