@@ -1,0 +1,13 @@
+<div>
+	<h1>Register</h1>
+	<form ng-submit="user.registerUser()">
+		<input type="text" placeholder="Name" ng-model="user.userData.name">
+		<input type="text" placeholder="Username" ng-model="user.userData.username">
+		<input type="password" placeholder="Password" ng-model="user.userData.password">
+		<button type="submit">Register</button>		
+	</form>
+		<div ng-show="user.message">
+			{{ user.message }}
+		</div>
+	
+</div>

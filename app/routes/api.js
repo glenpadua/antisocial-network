@@ -57,6 +57,34 @@ module.exports = function(app, express) {
 	});
 	
 	
+	// Creating a user does not require authentication
+	apiRouter.route('/users')
+	
+		// Create a User/Register (POST http://localhost/api/users)
+		.post(function(req, res) {
+			// Create a new instance of the user model
+			var user = new User();
+		
+			// set the user information
+			user.name = req.body.name;
+			user.username = req.body.username;
+			user.password = req.body.password;
+		
+			// save user and check for errors
+			user.save(function(err) {
+				if (err) {
+					// duplicate entry
+					if (err.code == 11000)
+						return res.json({ success: false, message: 'A user with that username already exists.' });
+					else
+						return res.send(err);
+				}
+				
+				res.json({ message: 'You have successfully registered! Login to continue' });
+			});
+		});
+	
+	
 	// middleware to use for all requests
 	apiRouter.use(function(req, res, next) {
 		console.log("Somebody just came in!");
@@ -92,6 +120,8 @@ module.exports = function(app, express) {
 		}
 	});
 	
+	// All routes after this require authentication
+	
 	// test route for API
 	// accessed at GET http://localhost:8080/api
 	apiRouter.get('/', function(req, res) {
@@ -104,30 +134,6 @@ module.exports = function(app, express) {
 	// Routes that end in /users
 	// -----------------------------------------
 	apiRouter.route('/users')
-	
-		// Create a User/Register (POST http://localhost/api/users)
-		.post(function(req, res) {
-			// Create a new instance of the user model
-			var user = new User();
-		
-			// set the user information
-			user.name = req.body.name;
-			user.username = req.body.username;
-			user.password = req.body.password;
-		
-			// save user and check for errors
-			user.save(function(err) {
-				if (err) {
-					// duplicate entry
-					if (err.code == 11000)
-						return res.json({ success: false, message: 'A user with that username already exists.' });
-					else
-						return res.send(err);
-				}
-				
-				res.json({ message: 'User created successfully!' });
-			});
-		})
 		
 		// Get all users (GET http://localhost/api/users)
 		.get(function(req, res) {

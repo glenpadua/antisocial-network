@@ -14,6 +14,13 @@ angular.module('app.routes', ['ngRoute'])
 			templateUrl: 'app/views/pages/login.html',
 			controller: 'mainController',
 			controllerAs: 'login'
+		})
+	
+		// register user route
+		.when('/register', {
+			templateUrl: 'app/views/pages/register.html',
+			controller: 'userController',
+			controllerAs: 'user'
 		});
 	
 		// get rid of the hash in the URL

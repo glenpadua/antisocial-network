@@ -46,6 +46,7 @@
 	<div class="navbar-right">
 		<ul>
 			<li><a href="/login" ng-if="!main.loggedIn">Login</a></li>
+			<li><a href="/register" ng-if="!main.loggedIn">Register</a></li>
 			<li><a href="#" ng-if="main.loggedIn">Hello {{ main.user.name }} !</a></li>
 			<li><a href="#" ng-click="main.doLogout()" ng-if="main.loggedIn">Logout</a></li>
 		</ul>

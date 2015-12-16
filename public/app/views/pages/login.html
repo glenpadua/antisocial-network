@@ -2,7 +2,11 @@
 	<h1>Login</h1>
 	<form ng-submit="login.doLogin()">
 		<input type="text" placeholder="Username" ng-model="login.loginData.username">
-		<input type="text" placeholder="Password" ng-model="login.loginData.password">
-		<button type="submit">Login</button>
+		<input type="password" placeholder="Password" ng-model="login.loginData.password">
+		<div ng-if="login.error">
+			{{ login.error }}
+		</div>
+		<button type="submit">Login</button>		
 	</form>
+	
 </div>
