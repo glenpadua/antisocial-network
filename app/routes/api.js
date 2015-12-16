@@ -205,7 +205,7 @@ module.exports = function(app, express) {
 	
 	apiRouter.route('/posts')
 		
-		// Create a new Post (POST http://localhost/api/posts)
+		// Create a new Post (POST http://localhost:8080/api/posts)
 		.post(function(req, res) {
 			// Create a new instance of the Post model
 			var post = new Post();
@@ -223,7 +223,7 @@ module.exports = function(app, express) {
 			});
 		})
 	
-		// Get all posts (GET http://localhost/api/posts)
+		// Get all posts (GET http://localhost:8080/api/posts)
 		.get(function(req, res) {
 			Post.find(function(err, posts) {
 				if (err) res.send(err);
