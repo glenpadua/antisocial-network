@@ -21,6 +21,13 @@ angular.module('app.routes', ['ngRoute'])
 			templateUrl: 'app/views/pages/register.html',
 			controller: 'userController',
 			controllerAs: 'user'
+		})
+		
+		// timeline showing all posts
+		.when('/timeline', {
+			templateUrl: 'app/views/pages/timeline.html',
+			controller: 'postController',
+			controllerAs: 'post'
 		});
 	
 		// get rid of the hash in the URL
