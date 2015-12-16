@@ -19,6 +19,11 @@ angular.module('commentService', [])
 			return $http.put('/api/posts/' + post_id + '/comments/' + comment_id + '/like/');
 		};
 	
+		// Get all comments of a post
+		commentFactory.get = function(post_id) {
+			return $http.get('/api/posts/' + post_id + '/comments/');
+		};
+	
 		// return the factory object
 		return commentFactory;
 	});

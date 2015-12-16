@@ -1,6 +1,6 @@
-angular.module('postCtrl', ['postService'])
+angular.module('postCtrl', ['postService', 'commentService'])
 
-	.controller('postController', function(Post, $route) {
+	.controller('postController', function(Post, $route, Comment) {
 	
 		var vm = this;
 	
@@ -42,4 +42,13 @@ angular.module('postCtrl', ['postService'])
 					vm.message = data.message;
 			});
 		};
+	
+		// Function to get all post comments
+		vm.getComments = function(post_id) {
+			
+			Comment.get(post_id)
+				.success(function(data) {
+					vm.comments = data;
+			});
+		}
 	});

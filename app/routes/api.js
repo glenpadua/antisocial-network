@@ -231,12 +231,17 @@ module.exports = function(app, express) {
 	
 		// Get all posts (GET http://localhost:8080/api/posts)
 		.get(function(req, res) {
-			Post.find(function(err, posts) {
+			/*Post.find(function(err, posts) {
 				if (err) res.send(err);
 				
 				// return all posts
 				res.json(posts);
-			});	
+			});	*/
+			Post.find({}).populate('comments').exec(function(err, posts) {
+				if (err) res.send(err)
+				
+				res.json(posts);
+			})
 		});
 	
 	// Get all posts of particular user (GET http://localhost:8080/api/users/:username/posts)
@@ -342,6 +347,15 @@ module.exports = function(app, express) {
 			});
 		
 			
+		})
+	
+		// Get all comments associated with the particular post (GET http://localhost:8080/api/posts/:post_id/comments)
+		.get(function(req, res) {
+			Comment.find({ post: req.post }, function(err, comments) {
+				if (err) res.send(err);
+				// return all comments
+				res.json(comments);
+			});
 		});
 	
 	// Middleware that returns comment object of particular comment ID to use in the following routes

@@ -14,6 +14,9 @@
 		<p> {{ p.author_name }} </p>
 		<p> {{ p.description }} </p>
 		<p><a href="#" ng-click="post.likePost(p._id); post.incrementLikes(p)">Like</a> {{ p.likes }} </p>
-		<p> {{ p._id }} </p>
+		<div ng-repeat="comment in p.comments">
+			<p> {{ comment.description }} </p>
+		</div>
+		<br>
 	</div>
 </div>
