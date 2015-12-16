@@ -1,8 +1,19 @@
+
+<div>
+	<h2>Create Post</h2>
+	<form ng-submit="post.createPost()">
+		<textarea name="" id="" cols="30" rows="10" ng-model="post.postData.description">
+		</textarea>
+		<button type="submit">Post</button>
+	</form>
+
+</div>
+
 <div ng-show="post.posts">
-	<div ng-repeat="post in post.posts">
-		<p> {{ post.author_name }} </p>
-		<p> {{ post.description }} </p>
-		<p> {{ post.likes }} </p>
-		<p> {{ post.comments }} </p>
+	<div ng-repeat="p in post.posts | orderBy: 'post.date':true ">
+		<p> {{ p.author_name }} </p>
+		<p> {{ p.description }} </p>
+		<p><a href="#" ng-click="post.likePost(p._id); post.incrementLikes(p)">Like</a> {{ p.likes }} </p>
+		<p> {{ p._id }} </p>
 	</div>
 </div>
