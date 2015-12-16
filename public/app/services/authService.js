@@ -45,7 +45,7 @@ angular.module('authService', [])
 		// get user info of logged in user
 		authFactory.getUser = function() {
 			if (AuthToken.getToken())
-				return $http.get('/api/me');
+				return $http.get('/api/me', { cache: true }); // saves login info to cache 
 			else
 				return $q.reject({ message: 'User has no token.' });
 		};
