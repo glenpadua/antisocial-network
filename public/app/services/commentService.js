@@ -10,8 +10,8 @@ angular.module('commentService', [])
 		// Define a function for each comment API endpoint
 		
 		// Add a comment to a post
-		commentFactory.add = function(post_id) {
-			return $http.post('/api/posts/' + post_id + '/comments/');
+		commentFactory.add = function(post_id, commentData) {
+			return $http.post('/api/posts/' + post_id + '/comments/', commentData);
 		};
 	
 		// Like a comment

@@ -1,0 +1,13 @@
+
+<div ng-show="profile.posts">
+	<div ng-repeat="p in profile.posts | orderBy: 'post.date':true ">
+		<p><a ng-href="/users/{{ p.username }}"> {{ p.author_name }} </a></p>
+		<p> {{ p.description }} </p>
+		<p><a href="#" ng-click="profile.likePost(p._id); profile.incrementLikes(p)">Like</a> {{ p.likes }} </p>
+		<div ng-repeat="comment in p.comments">
+			<p> <span> {{ comment.author_name }} </span> {{ comment.description }} </p>
+			<p><a href="#" ng-click="profile.likeComment(p._id, comment._id); profile.incrementCommentLikes(comment)">Like</a> {{ comment.likes }} </p>
+		</div>
+		<br>
+	</div>
+</div>

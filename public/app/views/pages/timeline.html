@@ -11,13 +11,18 @@
 
 <div ng-show="post.posts">
 	<div ng-repeat="p in post.posts | orderBy: 'post.date':true ">
-		<p> {{ p.author_name }} </p>
+		<p><a ng-href="/users/{{ p.author_id }}"> {{ p.author_name }} </a></p>
 		<p> {{ p.description }} </p>
 		<p><a href="#" ng-click="post.likePost(p._id); post.incrementLikes(p)">Like</a> {{ p.likes }} </p>
 		<div ng-repeat="comment in p.comments">
 			<p> <span> {{ comment.author_name }} </span> {{ comment.description }} </p>
-			<p><a href="#" ng-click="post.likeComment(p._id, comment._id, comment); post.incrementCommentLikes(comment)">Like</a> {{ comment.likes }} </p>
+			<p><a href="#" ng-click="post.likeComment(p._id, comment._id); post.incrementCommentLikes(comment)">Like</a> {{ comment.likes }} </p>
 		</div>
+			<!-- <form ng-submit="post.addComment(p._id)">
+				<input type="text" ng-model="post.commentData.description">
+				<button type="submit">Add Comment</button>
+			</form> -->
+			
 		<br>
 	</div>
 </div>

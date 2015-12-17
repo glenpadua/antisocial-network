@@ -63,6 +63,27 @@ angular.module('postCtrl', ['postService', 'commentService'])
 				.success(function(data) {
 					vm.message = data.message;	
 				});
+		};
+	
+		// function to add a comment
+		vm.addComment = function(post_id) {
+			
+			vm.message = '';
+			
+			Comment.add(post_id, vm.commentData)
+				.success(function(data) {
+				
+					// clear the form 
+					vm.commentData = {};
+					vm.message = data.message;
+				
+					// reload page to update view
+					$route.reload();
+			})
 		}
 		
+	})
+
+	.controller('singlePostController', function(Post, $routeParams, Comment) {
+	
 	});

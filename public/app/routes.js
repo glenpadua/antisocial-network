@@ -28,7 +28,14 @@ angular.module('app.routes', ['ngRoute'])
 			templateUrl: 'app/views/pages/timeline.html',
 			controller: 'postController',
 			controllerAs: 'post'
-		});
+		})
+		
+		// profile of users
+		.when('/users/:username', {
+			templateUrl: 'app/views/pages/profile.html',
+			controller: 'profileController',
+			controllerAs: 'profile'
+		})
 	
 		// get rid of the hash in the URL
 		$locationProvider.html5Mode(true);
