@@ -1,0 +1,12 @@
+<p><a ng-href="/users/{{ singlepost.postData.author_id }}"> {{ singlepost.postData.author_name }} </a></p>
+<p> {{ singlepost.postData.description }} </p>
+<p><a href="#" ng-click="singlepost.likePost(singlepost.postData._id); singlepost.incrementLikes(singlepost.postData)">Like</a> {{ singlepost.postData.likes }} </p>
+<div ng-repeat="comment in singlepost.postData.comments">
+	<p> <span> {{ comment.author_name }} </span> {{ comment.description }} </p>
+	<p><a href="#" ng-click="singlepost.likeComment(singlepost.postData._id, comment._id); singlepost.incrementCommentLikes(comment)">Like</a> {{ comment.likes }} </p>
+</div>
+	<form ng-submit="singlepost.addComment(singlepost.postData._id)">
+		<input type="text" ng-model="singlepost.commentData.description">
+		<button type="submit">Add Comment</button>
+	</form>
+<br>

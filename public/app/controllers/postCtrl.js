@@ -42,6 +42,29 @@ angular.module('postCtrl', ['postService', 'commentService'])
 					vm.message = data.message;
 			});
 		};
+		
+	})
+
+	.controller('singlePostController', function(Post, $routeParams, Comment, $route) {
+		var vm = this;
+		
+		Post.getPost($routeParams.post_id)
+			.success(function(data) {
+				vm.postData = data;
+		});
+	
+		// function to show likes increasing without reload
+		vm.incrementLikes = function(post) {
+			post.likes += 1;
+		};
+		// function to like a post
+		vm.likePost = function(id) {	
+			
+			Post.like(id)
+				.success(function(data) {
+					vm.message = data.message;
+			});
+		};
 	
 		// function to get all post comments
 		vm.getComments = function(post_id) {
@@ -79,11 +102,7 @@ angular.module('postCtrl', ['postService', 'commentService'])
 				
 					// reload page to update view
 					$route.reload();
-			})
-		}
+			});
+		};
 		
-	})
-
-	.controller('singlePostController', function(Post, $routeParams, Comment) {
-	
 	});

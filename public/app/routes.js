@@ -36,6 +36,13 @@ angular.module('app.routes', ['ngRoute'])
 			controller: 'profileController',
 			controllerAs: 'profile'
 		})
+		
+		// single post 
+		.when('/posts/:post_id', {
+			templateUrl: 'app/views/pages/post.html',
+			controller: 'singlePostController',
+			controllerAs: 'singlepost'
+		})
 	
 		// get rid of the hash in the URL
 		$locationProvider.html5Mode(true);

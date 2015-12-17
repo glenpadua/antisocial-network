@@ -18,6 +18,7 @@
 			<p> <span> {{ comment.author_name }} </span> {{ comment.description }} </p>
 			<p><a href="#" ng-click="post.likeComment(p._id, comment._id); post.incrementCommentLikes(comment)">Like</a> {{ comment.likes }} </p>
 		</div>
+		<a ng-href="/posts/{{ p._id }}">Comment</a>
 			<!-- <form ng-submit="post.addComment(p._id)">
 				<input type="text" ng-model="post.commentData.description">
 				<button type="submit">Add Comment</button>
