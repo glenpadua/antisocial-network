@@ -43,12 +43,26 @@ angular.module('postCtrl', ['postService', 'commentService'])
 			});
 		};
 	
-		// Function to get all post comments
+		// function to get all post comments
 		vm.getComments = function(post_id) {
 			
 			Comment.get(post_id)
 				.success(function(data) {
 					vm.comments = data;
 			});
+		};
+		
+		// function to show comment likes increasing without reload
+		vm.incrementCommentLikes = function(comment) {
+			comment.likes += 1;
+		};
+	
+		// function to like a comment
+		vm.likeComment = function(post_id, comment_id) {
+			Comment.like(post_id, comment_id)
+				.success(function(data) {
+					vm.message = data.message;	
+				});
 		}
+		
 	});
