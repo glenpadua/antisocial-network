@@ -10,7 +10,9 @@
 
 	<!-- CSS  -->
 	<!-- load bootstrap from CDN and custom CSS -->
-	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/libs/components-font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/css/styles.css">
 
 	<!-- JS -->
 	<!-- load angular and angular-route via CDN -->
@@ -39,26 +41,34 @@
 <body ng-app="antiApp" ng-controller="mainController as main">
 	
 	<!-- NAVBAR -->
-	<div class="navbar" ng-if="main.loggedIn">
-		<ul>
-			<li><h1>Anti-Social</h1></li>
-			<li><a href="#">Profile</a></li>
-			<li><a href="#">Timeline</a></li>
-		</ul>
-	</div>
-	<div class="navbar-right">
-		<ul>
-			<li><a href="/login" ng-if="!main.loggedIn">Login</a></li>
-			<li><a href="/register" ng-if="!main.loggedIn">Register</a></li>
-			<li><a href="#" ng-if="main.loggedIn">Hello {{ main.user.name }} !</a></li>
-			<li><a href="#" ng-click="main.doLogout()" ng-if="main.loggedIn">Logout</a></li>
-		</ul>
-	</div>
+	<header>
+		<div class="navbar navbar-inverse" ng-if="main.loggedIn">
+			<div class="container">
+				<div class="navbar-header">
+					<a href="/" class="navbar-brand"> <span class="fa fa-balance-scale"></span> The Anti-Social Network</a>
+				</div>
+				<ul class="navbar-nav nav">
+					<li><a ng-href="/users/{{ main.user.username }}">Profile</a></li>
+					<li><a href="/timeline">Timeline</a></li>
+				</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/login" ng-if="!main.loggedIn">Login</a></li>
+						<li><a href="/register" ng-if="!main.loggedIn">Register</a></li>
+						<li><a href="#" ng-if="main.loggedIn">Welcome {{ main.user.name }}!</a></li>
+						<li><a href="#" ng-click="main.doLogout()" ng-if="main.loggedIn"><span class="fa fa-sign-out"></span> Logout</a></li>
+					</ul>
+			</div>
+		</div>
+	</header>
 	
 	<main class="container">
 		<!-- ANGULAR VIEWS -->
 		<div ng-view></div>
 	</main>
 	
+	<!-- FOOTER -->
+	<footer class="footer" ng-if="main.loggedIn">
+		<a href="https://github.com/glenpadua/antisocial-network/"><span class="fa fa-github"></span></a>
+	</footer>
 </body>
 </html>

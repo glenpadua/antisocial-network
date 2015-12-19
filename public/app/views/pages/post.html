@@ -1,12 +1,31 @@
-<p><a ng-href="/users/{{ singlepost.postData.author_id }}"> {{ singlepost.postData.author_name }} </a></p>
-<p> {{ singlepost.postData.description }} </p>
-<p><a href="#" ng-click="singlepost.likePost(singlepost.postData._id); singlepost.incrementLikes(singlepost.postData)">Like</a> {{ singlepost.postData.likes }} </p>
-<div ng-repeat="comment in singlepost.postData.comments">
-	<p> <span> {{ comment.author_name }} </span> {{ comment.description }} </p>
-	<p><a href="#" ng-click="singlepost.likeComment(singlepost.postData._id, comment._id); singlepost.incrementCommentLikes(comment)">Like</a> {{ comment.likes }} </p>
-</div>
+<div class="post-container">
+	<div class="post-name">
+		<a ng-href="/users/{{ singlepost.postData.author_id }}"> {{ singlepost.postData.author_name }} </a>
+	</div>
+	<div class="post-desc"> {{ singlepost.postData.description }} </div>
+	<div><a ng-href="/posts/{{ singlepost.postData._id }}" class="date"> {{ singlepost.postData.date | date: 'medium' }} </a>
+	</div>
+	<div class="post-interact">
+		<a href="#" ng-click="singlepost.likePost(singlepost.postData._id); singlepost.incrementLikes(singlepost.postData)">
+			<span class="fa fa-hand-spock-o"></span> {{ singlepost.postData.likes }} Approve
+		</a>
+	</div>
+	
+	<div class="comment-container">
+		<div ng-repeat="comment in singlepost.postData.comments" class="comment">
+			<div>
+				<a ng-href="/users/{{ comment.author_id }}" class="comment-name"> {{ comment.author_name }} </a>
+
+				<div class="comment-desc">{{ comment.description }}</div>
+				<div class="comment-date"> {{ comment.date | date: 'medium' }} </div>
+				<a href="#" ng-click="singlepost.postData.likeComment(singlepost.postData._id, comment._id); singlepost.incrementCommentLikes(comment)" class="comment-approve approve"><span class="fa fa-hand-spock-o"></span> {{ comment.likes }} Approve</a>
+			</div>
+		</div>
+	</div>
 	<form ng-submit="singlepost.addComment(singlepost.postData._id)">
-		<input type="text" ng-model="singlepost.commentData.description">
-		<button type="submit">Add Comment</button>
+		<textarea class="form-control" ng-model="singlepost.commentData.description" rows="3"></textarea>
+		<div class="text-right">
+			<button type="submit" class="btn btn-primary comment-btn">Add Comment</button>
+		</div>
 	</form>
-<br>
+</div>

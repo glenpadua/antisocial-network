@@ -1,13 +1,28 @@
-<div>
+<div class="row col-sm-6 col-sm-offset-3 login-form">
 	<h1>Register</h1>
 	<form ng-submit="user.registerUser()">
-		<input type="text" placeholder="Name" ng-model="user.userData.name">
-		<input type="text" placeholder="Username" ng-model="user.userData.username">
-		<input type="password" placeholder="Password" ng-model="user.userData.password">
-		<button type="submit">Register</button>		
-	</form>
-		<div ng-show="user.message">
-			{{ user.message }}
+		<!-- NAME INPUT -->
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="Name" ng-model="user.userData.name">
 		</div>
-	
+		<!-- USERNAME INPUT -->
+		<div class="form-group">
+			<input type="text" class="form-control" ng-model="user.userData.username" placeholder="Username">
+		</div>
+		<!-- PASSWORD INPUT -->
+		<div class="form-group">
+			<input type="password" class="form-control" ng-model="user.userData.password" placeholder="Password">
+		</div>
+		<!-- REGISTER BUTTON -->
+		<button type="submit" class="btn btn-block btn-primary">
+			<span>Register</span>
+		</button>
+	</form>
+	<div ng-show="user.message" class="alert alert-info">
+		{{ user.message }}
+	</div>
+	<div ng-show="user.message" class="text-center">
+		<a href="/login" class="btn btn-primary">Login</a>
+	</div>
+
 </div>

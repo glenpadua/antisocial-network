@@ -1,29 +1,47 @@
+<div class="col-md-12">
 
-<div>
-	<h2>Create Post</h2>
-	<form ng-submit="post.createPost()">
-		<textarea name="" id="" cols="30" rows="10" ng-model="post.postData.description">
-		</textarea>
-		<button type="submit">Post</button>
-	</form>
+	<div>
+		<h2>What seems to be bothering you today?</h2>
+		<form ng-submit="post.createPost()">
+			<textarea class="form-control" rows="3" ng-model="post.postData.description"></textarea>
+			<div class="text-right">
+				<button type="submit" class="btn btn-primary post-button">Post</button>
+			</div>
+		</form>
 
-</div>
+	</div>
 
-<div ng-show="post.posts">
-	<div ng-repeat="p in post.posts | orderBy: 'post.date':true ">
-		<p><a ng-href="/users/{{ p.author_id }}"> {{ p.author_name }} </a></p>
-		<p> {{ p.description }} </p>
-		<p><a href="#" ng-click="post.likePost(p._id); post.incrementLikes(p)">Like</a> {{ p.likes }} </p>
-		<div ng-repeat="comment in p.comments">
-			<p> <span> {{ comment.author_name }} </span> {{ comment.description }} </p>
-			<p><a href="#" ng-click="post.likeComment(p._id, comment._id); post.incrementCommentLikes(comment)">Like</a> {{ comment.likes }} </p>
-		</div>
-		<a ng-href="/posts/{{ p._id }}">Comment</a>
-			<!-- <form ng-submit="post.addComment(p._id)">
-				<input type="text" ng-model="post.commentData.description">
-				<button type="submit">Add Comment</button>
-			</form> -->
+
+	<div ng-show="post.posts" class="post-container">
+		<div ng-repeat="p in post.posts | orderBy: 'post.date':true" class="post">
+			<div class="post-name">
+				<a ng-href="/users/{{ p.author_id }}"> {{ p.author_name }} </a>
+			</div>
+			<div class="post-desc"> {{ p.description }} </div>
+			<div><a ng-href="/posts/{{ p._id }}" class="date"> {{ p.date | date: 'medium' }} </a></div>
+			<div class="post-interact">
+				<a href="#" ng-click="post.likePost(p._id); post.incrementLikes(p)" class="approve">
+					<span class="fa fa-hand-spock-o"></span> {{ p.likes }} Approve
+				</a>
+				
+				<a ng-href="/posts/{{ p._id }}" class="comment-link">
+					<span class="fa fa-comment-o"></span> Comment
+				</a>
+			</div>
+			<div class="comment-container">
+				<div ng-repeat="comment in p.comments | limitTo: 3" class="comment">
+					<div>
+						<a ng-href="/users/{{ comment.author_id }}" class="comment-name"> {{ comment.author_name }} </a> 
+						
+						<div class="comment-desc">{{ comment.description }}</div>
+						<div class="comment-date"> {{ comment.date | date: 'medium' }} </div>
+						<a href="#" ng-click="post.likeComment(p._id, comment._id); post.incrementCommentLikes(comment)" class="comment-approve approve"><span class="fa fa-hand-spock-o"></span> {{ comment.likes }} Approve</a>  
+					</div>
 			
-		<br>
+						
+				</div>
+			</div>
+			<hr>
+		</div>
 	</div>
 </div>

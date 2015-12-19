@@ -241,10 +241,11 @@ module.exports = function(app, express) {
 				if (err) res.send(err)
 				
 				res.json(posts);
-			})
+			});
 		});
 	
 	// Get all posts of particular user (GET http://localhost:8080/api/users/:username/posts)
+
 	apiRouter.route('/users/:username/posts')
 	
 		.get(function(req, res) {
@@ -256,10 +257,9 @@ module.exports = function(app, express) {
 					res.json({ success: false, message: 'No such user exists' });
 				else {
 				// find and return the posts
-					Post.find({ author_id: req.params.username }, function(err, posts) {
-						if (err) res.send(err);
-
-						// return the posts
+					Post.find({ author_id: req.params.username }).populate('comments').exec(function(err, posts) {
+						if (err) res.send(err)
+						
 						res.json(posts);
 					});
 				}
@@ -330,7 +330,8 @@ module.exports = function(app, express) {
 			var comment  = new Comment();
 			
 			// Set comment info
-			comment.author = req.decoded.name;
+			comment.author_id = req.decoded.username;
+			comment.author_name = req.decoded.name;
 			comment.post = req.post;
 			comment.description = req.body.description;
 		

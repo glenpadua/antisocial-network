@@ -1,3 +1,103 @@
-body{
-	background-color: green;
+/* Basic CSS reset */
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.footer {
+  width: auto;
+  height: 2em;
+  opacity: 0.7;
+  margin-top: 5em;
+  text-align: center;
+	font-size: 3em;
+}
+
+.login-form {
+	margin-top: 10em;
+}
+ 
+.post-button {
+	margin-top: 1em;
+}
+
+.post-container {
+	margin-top: 2em;
+}
+
+.post {
+	margin-bottom: 2em;
+}
+
+.post-name {
+	padding-bottom: 0.2em;
+	font-size: 1.2em;
+} 
+
+.post-name a:hover {
+	text-decoration: none;
+}
+
+.date {
+	font-size: 0.9em;
+	color: rgba(0,0,0, 0.3);
+}
+
+.date:hover {
+	text-decoration: none;
+	color: rgba(0,0,0, 0.9);
+}
+
+.post-interact {
+	margin-top: 0.5em;
+}
+
+.approve:link{
+	text-decoration: none;
+	color: rgb(178, 8, 8);
+}
+
+.approve:hover, .comment-link:hover{
+	text-decoration: none;
+	color: rgb(178, 8, 8);
+}
+
+.approve:active, .comment-link:active{
+	text-decoration: none;
+	color: rgb(178, 8, 8);
+}
+
+
+.comment-container {
+	padding: 0.1em 0;
+	margin-left: 2.5em;
+}
+
+.comment-link {
+	margin-left: 3em;
+}
+
+.comment {
+	margin: 0.5em 0;
+	padding: 1em;
+	background-color: rgba(209, 209, 209, 0.1);
+	min-height: 3em;
+}
+
+.comment-name:hover {
+	text-decoration: none;
+}
+
+.comment-date {
+	font-size: 0.9em;
+	color: rgba(0,0,0, 0.3);
+}
+
+.comment-approve {
+	margin-top: 0.5em;
+}
+
+.comment-btn {
+	margin-top: 1em;
 }

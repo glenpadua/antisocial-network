@@ -42,6 +42,19 @@ angular.module('postCtrl', ['postService', 'commentService'])
 					vm.message = data.message;
 			});
 		};
+	
+		// function to show comment likes increasing without reload
+		vm.incrementCommentLikes = function(comment) {
+			comment.likes += 1;
+		};
+	
+		// function to like a comment
+		vm.likeComment = function(post_id, comment_id) {
+			Comment.like(post_id, comment_id)
+				.success(function(data) {
+					vm.message = data.message;	
+				});
+		};
 		
 	})
 

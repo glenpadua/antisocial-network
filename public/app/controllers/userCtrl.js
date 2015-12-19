@@ -57,7 +57,7 @@ angular.module('userCtrl', ['userService', 'postService', 'commentService'])
 				.success(function(data) {
 					vm.message = data.message;	
 				});
-		}
+		};
 	
 		
 	});

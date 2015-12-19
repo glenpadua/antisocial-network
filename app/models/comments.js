@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
 
 // Comment schema
 var CommentSchema = new Schema({
-	author: String,
+	author_id: String,
+	author_name: String,
 	description: String,
 	likes: { type: Number, default: 0 },
 	date: { type: Date, default: Date.now },
