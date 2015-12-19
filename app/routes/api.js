@@ -308,16 +308,52 @@ module.exports = function(app, express) {
 			});
 		});
 	
-		// Like a Post (PUT http://localhost:8080/api/posts/:post_id/like)
+		
 		apiRouter.route('/posts/:post_id/like')
 			
+			// Like a Post (PUT http://localhost:8080/api/posts/:post_id/like)
 			.put(function(req, res) {
-				req.post.likePost(function(err, post) {
+				/*req.post.likePost(function(err, post) {
 					if (err) res.send(err)
 					
 					res.json({ message: 'Liked post successfully!' });
+				});*/
+				req.post.like_ids.push(req.decoded.username);
+				req.post.likes += 1;
+			
+				req.post.save(function(err) {
+					if (err) res.send(err);
+					
+					res.json({ message: 'Liked Post successfully' });
+					
 				});
-		});
+			})
+		
+		
+			// Get all users who liked the post (GET http://localhost:8080/api/posts/:post_id/likes)
+			.get(function(req, res) {
+				res.json(req.post.like_ids);
+			});
+	
+		apiRouter.route('/posts/:post_id/unlike')
+		
+		// Unlike a Post (PUT http://localhost:8080/api/posts/:post_id/unlike)
+			.put(function(req, res) {
+				/*req.post.likePost(function(err, post) {
+					if (err) res.send(err)
+					
+					res.json({ message: 'Liked post successfully!' });
+				});*/
+				req.post.like_ids.pop(req.decoded.username);
+				req.post.likes -= 1;
+			
+				req.post.save(function(err) {
+					if (err) res.send(err);
+					
+					res.json({ message: 'Unliked Post successfully' });
+					
+				});
+			});
 	
 	// COMMENT API ROUTES
 	// ========================================================================	

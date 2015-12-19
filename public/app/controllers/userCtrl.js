@@ -23,11 +23,17 @@ angular.module('userCtrl', ['userService', 'postService', 'commentService'])
 	})
 
 	// Controller for profile needs
-	.controller('profileController', function($routeParams, Post, Comment) {
+	.controller('profileController', function($routeParams, Post, Comment, User) {
 		
 		var vm = this;
+	
+		// Get user details
+		User.get($routeParams.username)
+			.success(function(data) {
+			vm.user = data;
+		});
 		
-	// use route params service to grab data from the url
+		// use route params service to grab data from the url
 		Post.getUserPosts($routeParams.username)
 			.success(function(data) {
 				vm.posts = data;

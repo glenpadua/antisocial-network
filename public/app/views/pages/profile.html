@@ -1,3 +1,9 @@
+<div class="jumbotron">
+	<div class="text-center">
+		<h2> {{ profile.user.name }} ({{ profile.user.username }}) </h2>
+	</div>
+</div>
+
 <div ng-show="profile.posts" class="post-container">
 		<div ng-repeat="p in profile.posts | orderBy: 'post.date':true" class="post">
 			<div class="post-name">
@@ -6,7 +12,7 @@
 			<div class="post-desc"> {{ p.description }} </div>
 			<div><a ng-href="/posts/{{ p._id }}" class="date"> {{ p.date | date: 'medium' }} </a></div>
 			<div class="post-interact">
-				<a href="#" ng-click="post.likePost(p._id); post.incrementLikes(p)" class="approve">
+				<a href="#" ng-click="profile.likePost(p._id); profile.incrementLikes(p)" class="approve">
 					<span class="fa fa-hand-spock-o"></span> {{ p.likes }} Approve
 				</a>
 				
@@ -21,7 +27,7 @@
 						
 						<div class="comment-desc">{{ comment.description }}</div>
 						<div class="comment-date"> {{ comment.date | date: 'medium' }} </div>
-						<a href="#" ng-click="post.likeComment(p._id, comment._id); post.incrementCommentLikes(comment)" class="comment-approve approve"><span class="fa fa-hand-spock-o"></span> {{ comment.likes }} Approve</a>  
+						<a href="#" ng-click="profile.likeComment(p._id, comment._id); profile.incrementCommentLikes(comment)" class="comment-approve approve"><span class="fa fa-hand-spock-o"></span> {{ comment.likes }} Approve</a>  
 					</div>
 						
 				</div>

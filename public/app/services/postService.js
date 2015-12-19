@@ -38,6 +38,17 @@ angular.module('postService', [])
 		postFactory.like = function(post_id) {
 			return $http.put('/api/posts/' + post_id + '/like/');
 		};
+	
+		// unlike a post
+		postFactory.unlike = function(post_id) {
+			return $http.put('/api/posts/' + post_id + '/unlike/');
+		};
+	
+		// get users who liked post
+		postFactory.getUserLikes = function(post_id) {
+			return $http.get('/api/posts/' + post_id + '/likes/');
+		};
+		
 		
 		// return the post factory object
 		return postFactory;
