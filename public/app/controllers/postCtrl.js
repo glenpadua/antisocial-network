@@ -10,6 +10,24 @@ angular.module('postCtrl', ['postService', 'commentService', 'authService'])
 				
 			// bind all posts that come back to vm.posts 
 			vm.posts = data;
+			
+		/*	data.forEach(function(item) {
+				
+				Post.getUserLikes(item._id)
+					.success(function (data) {
+						// store array of users who have liked the post
+						var likedUsers = data;
+						Auth.getUser()
+							.success(function (data) {
+								var currentUser = data.username;
+								// check if logged in user is present is array of users who have liked the post
+								vm.hasLiked =  likedUsers.indexOf(currentUser) > -1;
+								//console.log(vm.hasLiked);
+							});
+
+					});
+			});*/
+			
 		});
 		
 		// function to create post
@@ -31,25 +49,54 @@ angular.module('postCtrl', ['postService', 'commentService', 'authService'])
 		};
 	
 		// function to show likes increasing without reload
-		vm.incrementLikes = function(post) {
+		vm.incrementLikes = function (post) {
 			post.likes += 1;
+			vm.hasLiked = true;
 		};
 	
-		// function to like a post
-		vm.likePost = function(id) {
-			
-			Post.like(id)
-				.success(function(data) {
-					vm.message = data.message;
+		// function to show likes decreasing without reload
+		vm.decrementLikes = function (post) {
+			post.likes -= 1;
+			vm.hasLiked = false;
+		};
+
+
+		// Check if user has liked a post
+	/*	vm.hasLiked = function (post) {
+			Post.getUserLikes(post._id)
+			.success(function (data) {
+
+				// store array of users who have liked the post
+				var likedUsers = data;
+				Auth.getUser()
+					.success(function (data) {
+						var currentUser = data.username;
+						// check if logged in user is present is array of users who have liked the post
+						return likedUsers.indexOf(currentUser) > -1;
+					});
+
 			});
+		};*/
+		
+
+		// function to like a post
+		vm.likePost = function (id) {
+
+			Post.like(id)
+				.success(function (data) {
+					vm.message = data.message;
+				});
 		};
 	
-		// function to check if user has liked a post
-	/*	vm.hasLiked = function(id) {
-			var likedUsers = Post.getUserLikes(id);
-			var currentUser = Auth.getUser().username;
-			return likedUsers.indexOf(currentUser) > -1;
-		};*/
+		// function to unlike a post
+		vm.unlikePost = function (id) {
+
+			Post.unlike(id)
+				.success(function (data) {
+					vm.message = data.message;
+				});
+		};
+	
 	
 		// function to show comment likes increasing without reload
 		vm.incrementCommentLikes = function(comment) {
@@ -93,14 +140,11 @@ angular.module('postCtrl', ['postService', 'commentService', 'authService'])
 
 				// store array of users who have liked the post
 				var likedUsers = data;
-				console.log(likedUsers);
 				Auth.getUser()
 					.success(function (data) {
 						var currentUser = data.username;
-						console.log(currentUser);
 						// check if logged in user is present is array of users who have liked the post
 						vm.hasLiked = likedUsers.indexOf(currentUser) > -1;
-						console.log(vm.hasLiked);
 					});
 
 			});

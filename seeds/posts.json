@@ -1,0 +1,163 @@
+[
+    {
+        "_id": "5670103706e715565dc94541",
+        "description": "This is a post! Hurrah please work",
+        "author_name": "Glen Padua",
+        "author_id": "glenp",
+        "__v": 0,
+        "comments": [],
+        "like_ids": [],
+        "likes": 2,
+        "date": "2015-12-15T13:05:59.272Z"
+    },
+    {
+        "_id": "567011e42d59671c5efe68db",
+        "description": "Lorem ipsum",
+        "author_name": "Glen Padua",
+        "author_id": "glenp",
+        "__v": 0,
+        "comments": [],
+        "like_ids": [],
+        "likes": 1,
+        "date": "2015-12-15T13:13:08.926Z"
+    },
+    {
+        "_id": "567180c36ceecfc62b9c40b2",
+        "description": "test",
+        "author_name": "Glen Padua",
+        "author_id": "glenp",
+        "__v": 0,
+        "comments": [],
+        "like_ids": [],
+        "likes": 3,
+        "date": "2015-12-16T15:18:27.155Z"
+    },
+    {
+        "_id": "5671810d6ceecfc62b9c40b3",
+        "description": "hello!!",
+        "author_name": "Glen Padua",
+        "author_id": "glenp",
+        "__v": 0,
+        "comments": [],
+        "like_ids": [],
+        "likes": 1,
+        "date": "2015-12-16T15:19:41.920Z"
+    },
+    {
+        "_id": "5671823f197730a12e86b06b",
+        "description": "John Snow is not Dead!",
+        "author_name": "Glen Padua",
+        "author_id": "glenp",
+        "__v": 0,
+        "comments": [],
+        "like_ids": [],
+        "likes": 10,
+        "date": "2015-12-16T15:24:47.446Z"
+    },
+    {
+        "_id": "5671b7b77eb1c1a34eae1d64",
+        "description": "I am going insane.",
+        "author_name": "Sanjana Sara George",
+        "author_id": "batgirl",
+        "__v": 9,
+        "comments": [
+            {
+                "_id": "567220118f04d5575ec5a946",
+                "description": "yeah Ikr",
+                "post": "5671b7b77eb1c1a34eae1d64",
+                "author": "Glen Padua",
+                "__v": 0,
+                "date": "2015-12-17T02:38:09.633Z",
+                "likes": 1
+            },
+            {
+                "_id": "567222078f04d5575ec5a947",
+                "description": "ads",
+                "post": "5671b7b77eb1c1a34eae1d64",
+                "author": "Glen Padua",
+                "__v": 0,
+                "date": "2015-12-17T02:46:31.959Z",
+                "likes": 2
+            }
+        ],
+        "like_ids": [],
+        "likes": 3,
+        "date": "2015-12-16T19:12:55.973Z"
+    },
+    {
+        "_id": "5672e5a6b52c210c766feaa6",
+        "description": "OMG Donald Trump is such a ****",
+        "author_name": "Sanjana Sara George",
+        "author_id": "batgirl",
+        "__v": 0,
+        "comments": [],
+        "like_ids": [],
+        "likes": 0,
+        "date": "2015-12-17T16:41:10.200Z"
+    },
+    {
+        "_id": "5672f9d121569b0a7c44ba4f",
+        "description": "I'm not sure",
+        "author_name": "Sanjana Sara George",
+        "author_id": "batgirl",
+        "__v": 0,
+        "comments": [],
+        "like_ids": [],
+        "likes": 1,
+        "date": "2015-12-17T18:07:13.065Z"
+    },
+    {
+        "_id": "5672fa7521569b0a7c44ba50",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos magni animi expedita doloremque possimus quisquam porro, labore nostrum facilis recusandae aut, provident ratione repudiandae saepe vitae odio quibusdam eius excepturi!",
+        "author_name": "Sanjana Sara George",
+        "author_id": "batgirl",
+        "__v": 5,
+        "comments": [
+            {
+                "_id": "567301da7f2ea5a10fa048ee",
+                "description": "test",
+                "post": "5672fa7521569b0a7c44ba50",
+                "author_name": "Sanjana Sara George",
+                "author_id": "batgirl",
+                "__v": 0,
+                "date": "2015-12-17T18:41:30.450Z",
+                "likes": 2
+            },
+            {
+                "_id": "567372a89211591e16024ed9",
+                "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos magni animi expedita doloremque possimus quisquam porro, labore nostrum facilis recusandae aut, provident ratione repudiandae saepe vitae odio quibusdam eius excepturi!",
+                "post": "5672fa7521569b0a7c44ba50",
+                "author_name": "Sanjana Sara George",
+                "author_id": "batgirl",
+                "__v": 0,
+                "date": "2015-12-18T02:42:48.509Z",
+                "likes": 0
+            },
+            {
+                "_id": "5673a66957ce3040295a6a40",
+                "description": "hahahah",
+                "post": "5672fa7521569b0a7c44ba50",
+                "author_name": "Glen Padua",
+                "author_id": "glenp",
+                "__v": 0,
+                "date": "2015-12-18T06:23:37.277Z",
+                "likes": 0
+            },
+            {
+                "_id": "5673a6f457ce3040295a6a41",
+                "description": "test",
+                "post": "5672fa7521569b0a7c44ba50",
+                "author_name": "Glen Padua",
+                "author_id": "glenp",
+                "__v": 0,
+                "date": "2015-12-18T06:25:56.354Z",
+                "likes": 0
+            }
+        ],
+        "like_ids": [
+            "glenp"
+        ],
+        "likes": 11,
+        "date": "2015-12-17T18:09:57.113Z"
+    }
+]

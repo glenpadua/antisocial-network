@@ -1,4 +1,13 @@
-<div class="row col-sm-6 col-sm-offset-3 login-form">
+<div class="jumbotron">
+	<h1>Welcome to the Anti-Social Network</h1>
+	<h3 class="text-center">You may rant about anyone or anything you please.</h3>
+	<div class="text-center">
+		<a href="/login" class="btn btn-danger" ng-if="!main.loggedIn">Login</a>
+		<a href="/register" class="btn btn-danger" ng-if="!main.loggedIn">Register</a>
+	</div>
+</div>
+
+<div class="row col-sm-6 col-sm-offset-3 login-form" ng-if="!main.loggedIn">
 	<h1>Login</h1>
 	<form ng-submit="login.doLogin()">
 		<!-- USERNAME INPUT -->

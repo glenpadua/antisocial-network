@@ -1,0 +1,5 @@
+{
+	"undefined": "mongodb://localhost:27017/anti-social",
+	"dev": "mongodb://localhost:27017/anti-social",
+	"prod": "mongodb://localhost:27017/anti-social"
+}

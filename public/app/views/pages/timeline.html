@@ -17,17 +17,35 @@
 			<div class="post-name">
 				<a ng-href="/users/{{ p.author_id }}"> {{ p.author_name }} </a>
 			</div>
+
 			<div class="post-desc"> {{ p.description }} </div>
 			<div><a ng-href="/posts/{{ p._id }}" class="date"> {{ p.date | date: 'medium' }} </a></div>
 			<div class="post-interact">
 				<a href="#" ng-click="post.likePost(p._id); post.incrementLikes(p)" class="approve">
-					<span class="fa fa-hand-spock-o"></span> {{ p.likes }} Approve
+					<span class="fa fa-hand-spock-o"></span> {{ p.likes }} Like
 				</a>
 				
 				<a ng-href="/posts/{{ p._id }}" class="comment-link">
 					<span class="fa fa-comment-o"></span> Comment
 				</a>
 			</div>
+			<!-- <div class="post-interact">
+				<a href="#" ng-click="post.unlikePost(p._id); post.decrementLikes(p)" class="approve">
+					<span class="fa fa-hand-spock-o"></span> {{ p.likes }} Unlike
+				</a>
+				
+				<a ng-href="/posts/{{ p._id }}" class="comment-link">
+					<span class="fa fa-comment-o"></span> Comment
+				</a>
+			</div>  -->
+			
+			<!-- <div ng-if="p.hasLiked">
+				I have Liked this post
+			</div>
+			<div ng-if="!p.hasLiked">
+				I have not Liked this post
+			</div> -->
+			
 			<div class="comment-container">
 				<div ng-repeat="comment in p.comments | limitTo: 3" class="comment">
 					<div>
