@@ -5,19 +5,25 @@
 	<div class="post-desc"> {{ singlepost.postData.description }} </div>
 	<div><a ng-href="/posts/{{ singlepost.postData._id }}" class="date"> {{ singlepost.postData.date | date: 'medium' }} </a>
 	</div>
-	<div class="post-interact">
+	<div class="post-interact" ng-if="!singlepost.hasLiked">
 		<a href="#" ng-click="singlepost.likePost(singlepost.postData._id); singlepost.incrementLikes(singlepost.postData)">
-			<span class="fa fa-hand-spock-o"></span> {{ singlepost.postData.likes }} Approve
+			<span class="fa fa-hand-spock-o"></span> {{ singlepost.postData.likes }} Like
+		</a>
+	</div>
+	<div class="post-interact" ng-if="singlepost.hasLiked">
+		<a href="#" ng-click="singlepost.unlikePost(singlepost.postData._id); singlepost.decrementLikes(singlepost.postData)">
+			<span class="fa fa-hand-spock-o"></span> {{ singlepost.postData.likes }} Unlike
 		</a>
 	</div>
 	
-<!-- 	<div ng-if="singlepost.hasLiked">
+	
+<div ng-if="singlepost.hasLiked">
 		I have liked this post. 
 	</div>
 	<div ng-if="!singlepost.hasLiked">
-		I have not liked this post.
+		I have not liked this post yet
 	</div>
-	<button >Lol</button> -->
+ 
 	
 	<div class="comment-container">
 		<div ng-repeat="comment in singlepost.postData.comments" class="comment">

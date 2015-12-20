@@ -78,11 +78,13 @@ angular.module('postCtrl', ['postService', 'commentService', 'authService'])
 		// function to show likes increasing without reload
 		vm.incrementLikes = function (post) {
 			post.likes += 1;
+			vm.hasLiked = true;
 		};
 	
 		// function to show likes decreasing without reload
 		vm.decrementLikes = function (post) {
-			post.likes += 1;
+			post.likes -= 1;
+			vm.hasLiked = false;
 		};
 
 		// Check if user has liked a post
@@ -91,13 +93,14 @@ angular.module('postCtrl', ['postService', 'commentService', 'authService'])
 
 				// store array of users who have liked the post
 				var likedUsers = data;
-
+				console.log(likedUsers);
 				Auth.getUser()
 					.success(function (data) {
 						var currentUser = data.username;
-
+						console.log(currentUser);
 						// check if logged in user is present is array of users who have liked the post
 						vm.hasLiked = likedUsers.indexOf(currentUser) > -1;
+						console.log(vm.hasLiked);
 					});
 
 			});
@@ -106,6 +109,15 @@ angular.module('postCtrl', ['postService', 'commentService', 'authService'])
 		vm.likePost = function (id) {
 
 			Post.like(id)
+				.success(function (data) {
+					vm.message = data.message;
+				});
+		};
+	
+		// function to unlike a post
+		vm.unlikePost = function (id) {
+
+			Post.unlike(id)
 				.success(function (data) {
 					vm.message = data.message;
 				});
