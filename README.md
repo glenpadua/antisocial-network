@@ -16,9 +16,9 @@ A social network where people can vent and only vent about whatever they like or
 5. Run `seed` in the project root to seed the database.
 6. To start the server use `nodemon server.js`.
 7. Now navigate to the application by entering `http:\\localhost:8080` in your browser.
-8. Create a new user by clicking Register and login with that user.
+8. Create a new user by clicking Register and Login with that user.
 
-Note: Commenting on a seeded post will not work as the comments and posts are not mapped. Create a new post and comment/like
+Note: Commenting on a seeded post will not work as the comments and posts are not mapped in the seed data. Create a new post and comment/like
 to test the functionality. 
 
 ### Work in Progress
@@ -26,3 +26,5 @@ to test the functionality.
 2. Caching issues (Lingering user details that go away only after page refresh.)
 
 P.S. This is just a hobby learning project using the MEAN Stack.
+
+P.P.S I am not really anti-social.
